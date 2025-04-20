@@ -1,6 +1,13 @@
 package stack
 
-import "fmt"
+import (
+	"errors"
+)
+
+var (
+	ErrStackFull  = errors.New("cannot push, stack is full")
+	ErrStackEmpty = errors.New("cannot pop/peek, stack is empty")
+)
 
 type Node struct {
 	value int64
@@ -15,9 +22,9 @@ type Stack struct {
 
 type IStack interface {
 	Destroy()
-	Push(value int64)
-	Pop()
-	Peek() int64
+	Push(value int64) error
+	Pop() error
+	Peek() (int64, error)
 	Size() int8
 	IsEmpty() bool
 	IsFull() bool
@@ -37,29 +44,33 @@ func (s *Stack) Destroy() {
 	s.count = 0
 }
 
-func (s *Stack) Push(value int64) {
+func (s *Stack) Push(value int64) error {
 	if s.IsFull() {
-		fmt.Printf("(ERROR) - Stack max size (%d) reached. \n", s.maxSize)
-		return
+		return ErrStackFull
 	}
 
 	node := Node{value: value, next: s.top}
 	s.top = &node
 	s.count += 1
+	return nil
 }
 
-func (s *Stack) Pop() {
+func (s *Stack) Pop() error {
 	if s.IsEmpty() {
-		fmt.Println("(ERROR) - Cannot pop, stack is empty.")
-		return
+		return ErrStackEmpty
 	}
 
 	s.top = s.top.next
 	s.count -= 1
+	return nil
 }
 
-func (s *Stack) Peek() int64 {
-	return s.top.value
+func (s *Stack) Peek() (int64, error) {
+	if s.IsEmpty() {
+		return -1, ErrStackEmpty
+	}
+
+	return s.top.value, nil
 }
 
 func (s *Stack) Size() int8 {
