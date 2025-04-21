@@ -1,10 +1,10 @@
-type Node = {
+type StackNode = {
   value: number;
-  next: Node | null;
+  next: StackNode | null;
 };
 
 export default class Stack {
-  private top: Node | null;
+  private top: StackNode | null;
   private count: number;
   private maxSize: number;
 
@@ -39,8 +39,10 @@ export default class Stack {
     this.count -= 1;
   }
 
-  public peek(): Node | null {
-    return this.top;
+  public peek(): number | null {
+    if (this.top === null) return null;
+
+    return this.top.value;
   }
 
   public size(): number {
