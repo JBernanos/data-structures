@@ -49,8 +49,8 @@ func (s *Stack) Push(value int64) error {
 		return ErrStackFull
 	}
 
-	node := Node{value: value, next: s.top}
-	s.top = &node
+	node := &Node{value: value, next: s.top}
+	s.top = node
 	s.count += 1
 	return nil
 }
