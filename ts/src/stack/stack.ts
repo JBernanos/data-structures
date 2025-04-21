@@ -56,4 +56,13 @@ export default class Stack {
   public isFull(): boolean {
     return this.count === this.maxSize;
   }
+
+  public contains(value: number): boolean {
+    let currentNode = this.top;
+    while (currentNode != null) {
+      if (currentNode.value === value) return true;
+      currentNode = currentNode.next;
+    }
+    return false;
+  }
 }

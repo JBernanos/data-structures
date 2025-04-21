@@ -73,7 +73,6 @@ export default class Queue {
       if (currentNode.value === value) return true;
       currentNode = currentNode.next;
     }
-
     return false;
   }
 }
