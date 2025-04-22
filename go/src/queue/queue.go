@@ -5,8 +5,8 @@ import (
 )
 
 var (
-	ErrQueueFull  = errors.New("cannot push, queue is full")
-	ErrQueueEmpty = errors.New("cannot pop/peek, queue is empty")
+	ErrQueueFull  = errors.New("cannot enqueue, queue is full")
+	ErrQueueEmpty = errors.New("cannot dequeue/peek, queue is empty")
 )
 
 type Node struct {
