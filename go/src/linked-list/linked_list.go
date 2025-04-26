@@ -90,6 +90,42 @@ func (ll *LinkedList) InsertAtTail(value int64) error {
 	return nil
 }
 
+func (ll *LinkedList) RemoveHead() error {
+	if ll.IsEmpty() {
+		return ErrListEmpty
+	}
+
+	if ll.head == ll.tail {
+		ll.head = nil
+		ll.tail = nil
+		return nil
+	}
+
+	ll.head = ll.head.next
+	ll.head.previous = ll.tail
+	ll.tail.next = ll.head
+
+	return nil
+}
+
+func (ll *LinkedList) RemoveTail() error {
+	if ll.IsEmpty() {
+		return ErrListEmpty
+	}
+
+	if ll.head == ll.tail {
+		ll.head = nil
+		ll.tail = nil
+		return nil
+	}
+
+	ll.tail = ll.tail.previous
+	ll.tail.next = ll.head
+	ll.head.previous = ll.tail
+
+	return nil
+}
+
 func (ll *LinkedList) Size() int8 {
 	return ll.maxSize
 }
