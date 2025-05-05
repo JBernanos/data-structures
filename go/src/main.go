@@ -2,6 +2,7 @@ package main
 
 import (
 	"data-structures/src/deque"
+	"data-structures/src/list"
 	"data-structures/src/queue"
 	"data-structures/src/stack"
 	"fmt"
@@ -21,4 +22,8 @@ func main() {
 	// Deque
 	var d deque.IDeque = deque.Create()
 	d.InsertFront(1)
+
+	// Circular Doubly Linked List
+	var ll list.ILinkedList = list.Create()
+	ll.InsertAtHead(1)
 }

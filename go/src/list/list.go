@@ -1,4 +1,4 @@
-package linkedlist
+package list
 
 import (
 	"errors"
@@ -26,9 +26,12 @@ type ILinkedList interface {
 	Destroy()
 	InsertAtHead(int64) error
 	InsertAtTail(int64) error
+	RemoveHead() error
+	RemoveTail() error
 	Size() int8
 	IsEmpty() bool
 	IsFull() bool
+	Contains(int64) bool
 }
 
 func Create() *LinkedList {
@@ -126,6 +129,22 @@ func (ll *LinkedList) RemoveTail() error {
 	return nil
 }
 
+func (ll *LinkedList) Head() (int64, error) {
+	if ll.IsEmpty() {
+		return -1, ErrListEmpty
+	}
+
+	return ll.head.value, nil
+}
+
+func (ll *LinkedList) Tail() (int64, error) {
+	if ll.IsEmpty() {
+		return -1, ErrListEmpty
+	}
+
+	return ll.tail.value, nil
+}
+
 func (ll *LinkedList) Size() int8 {
 	return ll.maxSize
 }
@@ -136,4 +155,15 @@ func (ll *LinkedList) IsEmpty() bool {
 
 func (ll *LinkedList) IsFull() bool {
 	return ll.count == ll.maxSize
+}
+
+func (ll *LinkedList) Contains(value int64) bool {
+	currentNode := ll.head
+	for i := 0; i < int(ll.Size()); i++ {
+		if currentNode.value == value {
+			return true
+		}
+		currentNode = currentNode.next
+	}
+	return false
 }
