@@ -108,6 +108,8 @@ func (ll *LinkedList) RemoveHead() error {
 	ll.head.previous = ll.tail
 	ll.tail.next = ll.head
 
+	ll.count -= 1
+
 	return nil
 }
 
@@ -125,6 +127,8 @@ func (ll *LinkedList) RemoveTail() error {
 	ll.tail = ll.tail.previous
 	ll.tail.next = ll.head
 	ll.head.previous = ll.tail
+
+	ll.count -= 1
 
 	return nil
 }
